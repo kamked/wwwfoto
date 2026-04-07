@@ -170,14 +170,14 @@
                                     </svg></span>Ząbki, ul. Ks. Skorupki 43</div>
                         </div>
                     </div>
-                    <form class="contact-form">
+                    <form class="contact-form" id="contact-form" novalidate>
                         <div class="field">
                             <label for="name">Imię</label>
-                            <input type="text" id="name" name="name" placeholder="Jak masz na imię?" />
+                            <input type="text" id="name" name="name" placeholder="Jak masz na imię?" required />
                         </div>
                         <div class="field">
                             <label for="email">Adres e-mail</label>
-                            <input type="email" id="email" name="email" placeholder="Twój adres e-mail" />
+                            <input type="email" id="email" name="email" placeholder="Twój adres e-mail" required />
                         </div>
                         <div class="field">
                             <label for="type">Rodzaj sesji</label>
@@ -186,9 +186,10 @@
                         <div class="field">
                             <label for="message">Wiadomość</label>
                             <textarea id="message" name="message"
-                                placeholder="Napisz kilka słów o tym, czego potrzebujesz."></textarea>
+                                placeholder="Napisz kilka słów o tym, czego potrzebujesz." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Wyślij wiadomość</button>
+                        <div id="form-feedback" class="form-feedback" aria-live="polite"></div>
+                        <button type="submit" class="btn btn-primary" id="form-submit">Wyślij wiadomość</button>
                     </form>
                 </div>
             </section>
@@ -202,6 +203,69 @@
 
     <script>
         document.getElementById("year").textContent = new Date().getFullYear();
+
+        (function () {
+            const form = document.getElementById("contact-form");
+            const btn = document.getElementById("form-submit");
+            const feedback = document.getElementById("form-feedback");
+
+            form.addEventListener("submit", async function (e) {
+                e.preventDefault();
+
+                const name = form.name.value.trim();
+                const email = form.email.value.trim();
+                const message = form.message.value.trim();
+
+                if (!name || !email || !message) {
+                    showFeedback("error", "Uzupełnij wymagane pola: imię, e-mail i wiadomość.");
+                    return;
+                }
+
+                const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRe.test(email)) {
+                    showFeedback("error", "Podaj prawidłowy adres e-mail.");
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.textContent = "Wysyłanie…";
+                feedback.className = "form-feedback";
+                feedback.textContent = "";
+
+                try {
+                    const res = await fetch("https://formsubmit.co/ajax/ewelina.kedzierska.fotograf@gmail.com", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                        body: JSON.stringify({
+                            imie: name,
+                            email: email,
+                            rodzaj_sesji: form.type.value.trim() || "—",
+                            wiadomosc: message,
+                            _subject: "Nowe zapytanie o sesję – " + name
+                        })
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok && data.success === "true") {
+                        showFeedback("success", "Dziękuję! Wiadomość została wysłana. Odezwę się wkrótce ✦");
+                        form.reset();
+                    } else {
+                        throw new Error();
+                    }
+                } catch (_) {
+                    showFeedback("error", "Coś poszło nie tak. Napisz bezpośrednio na ewelina.kedzierska.fotograf@gmail.com");
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = "Wyślij wiadomość";
+                }
+            });
+
+            function showFeedback(type, msg) {
+                feedback.className = "form-feedback form-feedback--" + type;
+                feedback.textContent = msg;
+            }
+        })();
     </script>
 </body>
 
