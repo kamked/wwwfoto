@@ -246,12 +246,14 @@
                     });
 
                     const data = await res.json();
+                    console.log("FormSubmit response:", res.status, data);
 
-                    if (res.ok && data.success === "true") {
+                    if (res.ok && (data.success === "true" || data.success === true)) {
                         showFeedback("success", "Dziękuję! Wiadomość została wysłana. Odezwę się wkrótce ✦");
                         form.reset();
                     } else {
-                        throw new Error();
+                        console.error("FormSubmit error:", data);
+                        throw new Error(data.message || "Nieznany błąd");
                     }
                 } catch (_) {
                     showFeedback("error", "Coś poszło nie tak. Napisz bezpośrednio na ewelina.kedzierska.fotograf@gmail.com");
