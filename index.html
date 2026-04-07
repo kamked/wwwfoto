@@ -212,9 +212,11 @@
             form.addEventListener("submit", async function (e) {
                 e.preventDefault();
 
-                const name = form.name.value.trim();
-                const email = form.email.value.trim();
-                const message = form.message.value.trim();
+                const els = form.elements;
+                const name = els['name'].value.trim();
+                const email = els['email'].value.trim();
+                const message = els['message'].value.trim();
+                const type = els['type'].value.trim();
 
                 if (!name || !email || !message) {
                     showFeedback("error", "Uzupełnij wymagane pola: imię, e-mail i wiadomość.");
@@ -239,7 +241,7 @@
                         body: JSON.stringify({
                             imie: name,
                             email: email,
-                            rodzaj_sesji: form.type.value.trim() || "—",
+                            rodzaj_sesji: type || "—",
                             wiadomosc: message,
                             _subject: "Nowe zapytanie o sesję – " + name
                         })
