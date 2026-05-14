@@ -293,8 +293,10 @@ header {
     color: var(--muted);
 }
 
-.page-index .service-meta {
-    font-size: 0.85rem;
+.page-index .service-card--premium {
+    border: 2px solid #f0e6d2;
+    background: linear-gradient(135deg, #fefefe 0%, #fdfcfb 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .page-index .gallery-preview {
