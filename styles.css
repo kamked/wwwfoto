@@ -280,6 +280,13 @@ header {
     margin-bottom: 0.55rem;
 }
 
+.page-index .service-price {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+}
+
 .page-index .service-card p,
 .page-index .service-meta,
 .page-index .section-text {
