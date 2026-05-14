@@ -293,10 +293,9 @@ header {
     color: var(--muted);
 }
 
-.page-index .service-card--premium {
-    border: 2px solid #f0e6d2;
-    background: linear-gradient(135deg, #fefefe 0%, #fdfcfb 100%);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+.page-index .services-grid article:nth-child(3) {
+    border-color: #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 .page-index .gallery-preview {
