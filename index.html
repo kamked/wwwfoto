@@ -16,7 +16,7 @@
     <meta property="og:description" content="Fotografia Ewelina Kędzierska - sesje kobiece, ciążowe, rodzinne i studio fotograficzne w Ząbkach. Naturalne zdjęcia w jasnej, spójnej estetyce." />
     <meta property="og:image" content="https://www.ewelinakedzierska.pl/images/sesje_kobiece_war_okolice.jpg" />
     <meta property="og:locale" content="pl_PL" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://formsubmit.co; form-action https://formsubmit.co;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src https://formspree.io; form-action https://formspree.io;">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -265,7 +265,7 @@
                 feedback.textContent = "";
 
                 try {
-                    const res = await fetch("https://formsubmit.co/ajax/ewelina.kedzierska.fotograf@gmail.com", {
+                    const res = await fetch("https://formspree.io/f/mwvydoyp", {
                         method: "POST",
                         headers: { "Content-Type": "application/json", "Accept": "application/json" },
                         body: JSON.stringify({
